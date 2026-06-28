@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বাংলা video Link </title>
+    <title>বাংলা Video Link 🔞</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://adsgram.ai/sdk/v1/adsgram.js"></script>
     <style>
@@ -16,7 +16,7 @@
         .balance-badge { background-color: #6c5ce7; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; }
         
         .container { padding: 15px; }
-        .page-title { font-size: 22px; font-weight: 8xl; margin-bottom: 5px; color: #1e272e; text-align: center; margin-top: 10px; }
+        .page-title { font-size: 22px; font-weight: 800; margin-bottom: 5px; color: #1e272e; text-align: center; margin-top: 10px; }
         .page-subtitle { font-size: 13px; color: #7f8c8d; text-align: center; margin-bottom: 20px; }
         
         .tab-content { display: none; }
@@ -26,13 +26,27 @@
         .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #edf2f7; }
         .card-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #2d3748; display: flex; align-items: center; }
         
-        /* Trending Links */
-        .link-card { background: white; border-radius: 14px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #e2e8f0; }
-        .link-thumb { width: 65px; height: 65px; border-radius: 10px; background-color: #e2e8f0; margin-right: 12px; object-fit: cover; }
-        .link-info { flex: 1; }
-        .link-name { font-size: 14px; font-weight: bold; color: #1a202c; margin-bottom: 5px; line-height: 1.3; }
-        .link-meta { font-size: 11px; color: #718096; }
-        .task-btn { background-color: #1a202c; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; }
+        /* Trending Links WITH IMAGE */
+        .link-card { background: white; border-radius: 16px; padding: 12px; margin-bottom: 15px; display: flex; align-items: center; border: 1px solid #e2e8f0; }
+        .link-thumb { width: 80px; height: 80px; border-radius: 12px; margin-right: 12px; object-fit: cover; background-color: #edf2f7; }
+        .link-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .link-name { font-size: 14px; font-weight: bold; color: #1a202c; margin-bottom: 4px; line-height: 1.4; }
+        .link-meta { font-size: 12px; color: #718096; margin-bottom: 8px; }
+        .btn-group { display: flex; gap: 8px; align-items: center; }
+        .task-btn { background-color: #1a202c; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; flex: 1; text-align: center; }
+        .share-btn { background-color: #ebf8ff; color: #3182ce; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+        
+        /* Verification Tasks (As requested in 1000143599.jpg) */
+        .v-task-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; background: #fff; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .v-task-info { display: flex; align-items: center; gap: 10px; }
+        .v-task-icon { width: 40px; height: 40px; background-color: #e8f4fd; color: #1da1f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .v-btn-go { background-color: #1a202c; color: white; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: bold; }
+        .v-input-group { display: flex; gap: 10px; margin-top: 10px; }
+        .v-input { flex: 1; padding: 10px; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 13px; }
+        .v-btn-verify { background-color: #6c5ce7; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; }
+
+        /* Rules Box */
+        .rules-list { font-size: 13px; color: #4a5568; line-height: 1.6; padding-left: 15px; }
         
         /* Requirements Box */
         .req-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #edf2f7; font-size: 13px; }
@@ -47,7 +61,7 @@
         .submit-btn { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border: none; padding: 13px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 15px; }
         
         /* Bottom Navbar */
-        .navbar { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a202c; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); }
+        .navbar { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a202c; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); z-index: 100; }
         .nav-item { color: #a0aec0; cursor: pointer; font-size: 11px; text-align: center; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-item.active-nav { color: #9f7aea; font-weight: bold; }
@@ -73,31 +87,60 @@
             <p class="page-subtitle">Watch ads to unlock premium content.</p>
             
             <div class="link-card">
+                <img class="link-thumb" src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=150" alt="Thumb">
                 <div class="link-info">
-                    <div class="link-name">🎬 অপূর্বর নতুন রোমান্টিক নাটক ২০২৬</div>
-                    <div class="link-meta">⏱️ ৫ সেকেন্ড টাস্ক</div>
+                    <div class="link-name">বাস এর মধ্যে গার্লফ্রেন্ড কে নিয়ে নতুন .হট ভিডিও ..</div>
+                    <div class="link-meta">পুরাব কড়া নাটক না দেখলে মিস করবেন 👑</div>
+                    <div class="btn-group">
+                        <button class="task-btn" onclick="watchAdAndUnlock()">☵ Tasks (0/5)</button>
+                        <button class="share-btn" onclick="alert('https://t.me/c/4419629327/48)">➔</button>
+                    </div>
                 </div>
-                <button class="task-btn" onclick="watchAdAndUnlock()">⚡ Tasks (0/5)</button>
-            </div>
-
-            <div class="link-card">
-                <div class="link-info">
-                    <div class="link-name">🎬 মুশফিক আর ফারহানের ভাইরাল নাটক</div>
-                    <div class="link-meta">⏱️ ৫ সেকেন্ড টাস্ক</div>
-                </div>
-                <button class="task-btn" onclick="watchAdAndUnlock()">⚡ Tasks (0/5)</button>
             </div>
         </div>
 
-        <!-- 2. EARN & TASK TAB -->
+        <!-- 2. EARN & TASK TAB (Channnel Section Added Here) -->
         <div id="earn" class="tab-content">
             <h2 class="page-title">Earn Money</h2>
-            <p class="page-subtitle">Watch ads & complete partner tasks</p>
+            <p class="page-subtitle">Watch ads & complete tasks</p>
+            
+            <!-- Video Ad Box -->
             <div class="card" style="text-align: center;">
-                <div style="font-size: 40px; margin-bottom: 10px;">👑</div>
-                <h3>Watch Video Ad</h3>
-                <p style="font-size: 13px; color: #718096; margin: 10px 0;">Get ৳0.50 per full completion.</p>
-                <button class="submit-btn" onclick="watchAdAndUnlock()">🎥 Start Watching</button>
+                <div style="font-size: 40px; margin-bottom: 10px;">🎥</div>
+                <h3>Watch 2-Step Video Ad</h3>
+                <p style="font-size: 13px; color: #718096; margin: 10px 0;">Get ৳20.00 per full completion.</p>
+                <button class="submit-btn" onclick="watchAdAndUnlock(20.00)">🎬 Start Watching</button>
+            </div>
+
+            <!-- Verification Tasks Section -->
+            <h3 style="font-size: 16px; margin: 20px 0 10px 0; color: #2d3748;">Verification Tasks <span style="background-color: #e6fffa; color: #234e52; font-size: 11px; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">High Paying</span></h3>
+            
+            <div class="card" style="padding: 15px;">
+                <div class="v-task-box">
+                    <div class="v-task-info">
+                        <div class="v-task-icon">🔗</div>
+                        <div>
+                            <div style="font-size: 14px; font-weight: bold;">Join Telegram</div>
+                            <div style="font-size: 12px; color: #38a169; font-weight: bold;">+৳20</div>
+                        </div>
+                    </div>
+                    <!-- এখানে আপনার আসল টেলিগ্রাম চ্যানেলের লিংক দিন --> https://t.me/Daily_FreeEarn120
+                    <a href="https://t.me/your_channel_link" target="_blank" class="v-btn-go">Go to Link</a>
+                </div>
+                <div class="v-input-group">
+                    <input type="text" id="v-code-input" class="v-input" placeholder="Verification Code">
+                    <button class="v-btn-verify" onclick="verifyTelegramTask()">Verify</button>
+                </div>
+            </div>
+
+            <!-- Rules Box -->
+            <div class="card">
+                <div class="card-title" style="font-size: 14px; color: #2b6cb0;">🛡️ Rules</div>
+                <ul class="rules-list">
+                    <li>Daily limit only applies to Daily Reward Video Ads.</li>
+                    <li>Partner Tasks are Unlimited!</li>
+                    <li>For Verification tasks, find the code from the link and verify it.</li>
+                </ul>
             </div>
         </div>
 
@@ -132,7 +175,6 @@
                 </div>
             </div>
 
-            <!-- Withdrawal Requirements -->
             <div class="card">
                 <div class="card-title">⚠️ Withdrawal Requirements:</div>
                 <div class="req-item">
@@ -141,7 +183,6 @@
                 </div>
             </div>
 
-            <!-- Withdraw Form -->
             <div class="card">
                 <div class="card-title">💸 Withdraw</div>
                 <div class="input-group">
@@ -189,11 +230,10 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // সিমুলেটেড ডেটা (যেহেতু ডেটাবেজ নেই, আপাতত ডেমো দেখানোর জন্য)
         let balance = 0.00;
-        let totalRefers = 0; // এটা চেঞ্জ করে পরীক্ষা করতে পারেন (যেমন: 16 দিলে লক খুলে যাবে)
+        let totalRefers = 0; 
+        let channelTaskCompleted = false;
 
-        // টেলিগ্রাম ইউজার ডেটা সেট করা
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             const user = tg.initDataUnsafe.user;
             document.getElementById('top-username').innerText = user.first_name;
@@ -208,7 +248,6 @@
             document.getElementById(tabId).classList.add('active');
             el.classList.add('active-nav');
             
-            // প্রোফাইল ট্যাবের ডেটা আপডেট
             if(tabId === 'profile') {
                 document.getElementById('prof-bal').innerText = "৳" + balance.toFixed(2);
                 document.getElementById('user-refers').innerText = totalRefers;
@@ -224,21 +263,38 @@
             }
         }
 
-        function watchAdAndUnlock() {
-            alert("বিজ্ঞাপন লোড হচ্ছে... ৫ সেকেন্ড অপেক্ষা করুন।");
+        function watchAdAndUnlock(amountToAdd = 5) {
+            alert("বিজ্ঞাপন লোড হচ্ছে... ১৫ সেকেন্ড অপেক্ষা করুন।");
             setTimeout(() => {
-                balance += 0.50; 
+                balance += amountToAdd; 
                 document.getElementById('user-balance').innerText = balance.toFixed(2);
-                alert("অভিনন্দন! আপনার ব্যালেন্সে ৳০.৫০ যোগ হয়েছে।");
+                alert("অভিনন্দন! আপনার ব্যালেন্সে ৳" + amountToAdd + " যোগ হয়েছে।");
             }, 3000);
+        }
+
+        function verifyTelegramTask() {
+            if(channelTaskCompleted) {
+                alert("আপনি ইতিমধ্যেই এই টাস্কটি কমপ্লিট করেছেন!");
+                return;
+            }
+            const enteredCode = document.getElementById('v-code-input').value.trim();
+            
+            // এখানে আপনি যেকোনো গোপন কোড সেট করতে পারেন, আমি আপাতত JOIN55 দিয়েছি।
+            if(enteredCode === "JOIN55" || enteredCode === "join55") {
+                balance += 20.00;
+                document.getElementById('user-balance').innerText = balance.toFixed(2);
+                channelTaskCompleted = true;
+                alert("সফল হয়েছে! আপনার অ্যাকাউন্টে ৳২০.০০ যোগ করা হয়েছে। 🎉");
+            } else {
+                alert("ভুল কোড! অনুগ্রহ করে চ্যানেলে জয়েন করে সঠিক কোডটি সংগ্রহ করুন।");
+            }
         }
 
         function requestWithdraw() {
             const number = document.getElementById('number').value;
             const amount = parseFloat(document.getElementById('amount').value);
 
-            // ১৫টি রেফারের কন্ডিশন চেক
-            if(totalRefers < 5) {
+            if(totalRefers < 15) {
                 alert("দুঃখিত! উইথড্র করার জন্য আপনার অবশ্যই সর্বনিম্ন ১৫ টি সফল রেফার থাকতে হবে।");
                 return;
             }
