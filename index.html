@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangla Natok Earning App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://adsgram.ai/sdk/v1/adsgram.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #1a1a2e; color: #fff; padding-bottom: 70px; }
+        .header { background-color: #161623; padding: 15px; text-align: center; border-bottom: 1px solid #2d2d44; }
+        .balance-box { background: linear-gradient(135deg, #6c5ce7, #a29bfe); padding: 15px; margin: 15px; border-radius: 12px; text-align: center; }
+        .balance-box h3 { font-size: 14px; opacity: 0.9; }
+        .balance-box h2 { font-size: 28px; margin-top: 5px; }
+        .tab-content { padding: 15px; display: none; }
+        .active { display: block; }
+        .natok-card { background-color: #22223b; border-radius: 10px; margin-bottom: 15px; overflow: hidden; padding: 15px; }
+        .natok-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+        .unlock-btn { background-color: #e84393; color: white; border: none; padding: 10px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 14px; }
+        .input-group input, .input-group select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background-color: #22223b; color: white; }
+        .submit-btn { background-color: #00b894; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .navbar { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #161623; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #2d2d44; }
+        .nav-item { color: #888; cursor: pointer; font-size: 14px; text-align: center; }
+        .nav-item.active-nav { color: #6c5ce7; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Natok Premium Link 🎬</h2>
+    </div>
+
+    <div class="balance-box">
+        <h3>আমার ব্যালেন্স</h3>
+        <h2>৳ <span id="user-balance">0.00</span></h2>
+    </div>
+
+    <div id="home" class="tab-content active">
+        <h3>ট্রেন্ডিং নাটকসমূহ</h3><br>
+        
+        <div class="natok-card">
+            <div class="natok-title">🔥 অপূর্বর নতুন রোমান্টিক নাটক ২০২৬</div>
+            <button class="unlock-btn" onclick="watchAdAndUnlock('https://youtube.com')">🔓 টাস্ক পূরণ করে দেখুন</button>
+        </div>
+
+        <div class="natok-card">
+            <div class="natok-title">🔥 মুশফিক আর ফারহানের সেরা নতুন নাটক</div>
+            <button class="unlock-btn" onclick="watchAdAndUnlock('https://youtube.com')">🔓 টাস্ক পূরণ করে দেখুন</button>
+        </div>
+    </div>
+
+    <div id="withdraw" class="tab-content">
+        <h3>টাকা তুলুন (Withdraw)</h3><br>
+        <div class="input-group">
+            <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
+            <select id="method">
+                <option value="bKash">বিকাশ (bKash)</option>
+                <option value="Nagad">নগদ (Nagad)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>আপনার নম্বর দিন</label>
+            <input type="number" id="number" placeholder="017XXXXXXXX">
+        </div>
+        <div class="input-group">
+            <label>টাকার পরিমাণ (সর্বনিম্ন ৳৫০)</label>
+            <input type="number" id="amount" placeholder="50">
+        </div>
+        <button class="submit-btn" onclick="requestWithdraw()">উইথড্র রিকোয়েস্ট পাঠান</button>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-item active-nav" onclick="switchTab('home', this)">🏠 Home</div>
+        <div class="nav-item" onclick="switchTab('withdraw', this)">💰 Withdraw</div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        let balance = 0.00;
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active-nav'));
+            document.getElementById(tabId).classList.add('active');
+            el.classList.add('active-nav');
+        }
+
+        function watchAdAndUnlock(natokLink) {
+            alert("বিজ্ঞাপন লোড হচ্ছে... দয়া করে ৫ সেকেন্ড অপেক্ষা করুন।");
+            setTimeout(() => {
+                balance += 0.50; 
+                document.getElementById('user-balance').innerText = balance.toFixed(2);
+                alert("অভিনন্দন! আপনার ব্যালেন্সে ৳০.৫০ যোগ হয়েছে।");
+                window.open(natokLink, '_blank');
+            }, 3000);
+        }
+
+        function requestWithdraw() {
+            const method = document.getElementById('method').value;
+            const number = document.getElementById('number').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if(!number || isNaN(amount) || amount < 50) {
+                alert("দয়া করে সঠিক নম্বর এবং সর্বনিম্ন ৫০ টাকা লিখুন।");
+                return;
+            }
+
+            if(balance < amount) {
+                alert("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালেন্স নেই।");
+                return;
+            }
+
+            const message = `💸 নতুন উইথড্র রিকোয়েস্ট!\n👤 ইউজার: ${tg.initDataUnsafe.user?.first_name || 'Unknown'}\n📱 মেথড: ${method}\n📞 নম্বর: ${number}\n💰 পরিমাণ: ৳${amount}`;
+            tg.sendData(message);
+            
+            balance -= amount;
+            document.getElementById('user-balance').innerText = balance.toFixed(2);
+            alert("আপনার উইথড্র রিকোয়েস্টটি সফলভাবে পাঠানো হয়েছে!");
+        }
+    </script>
+</body>
+</html>
 
