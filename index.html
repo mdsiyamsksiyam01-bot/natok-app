@@ -1,112 +1,250 @@
-<!DOCTYPE html>
+০<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangla Natok Earning App</title>
+    <title>বাংলা video Link </title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://adsgram.ai/sdk/v1/adsgram.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #1a1a2e; color: #fff; padding-bottom: 70px; }
-        .header { background-color: #161623; padding: 15px; text-align: center; border-bottom: 1px solid #2d2d44; }
-        .balance-box { background: linear-gradient(135deg, #6c5ce7, #a29bfe); padding: 15px; margin: 15px; border-radius: 12px; text-align: center; }
-        .balance-box h3 { font-size: 14px; opacity: 0.9; }
-        .balance-box h2 { font-size: 28px; margin-top: 5px; }
-        .tab-content { padding: 15px; display: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f7f9fc; color: #333; padding-bottom: 80px; }
+        
+        /* Top Header */
+        .top-header { background-color: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eef2f5; }
+        .user-pill { display: flex; align-items: center; background-color: #f1f3f7; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; }
+        .balance-badge { background-color: #6c5ce7; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        
+        .container { padding: 15px; }
+        .page-title { font-size: 22px; font-weight: 8xl; margin-bottom: 5px; color: #1e272e; text-align: center; margin-top: 10px; }
+        .page-subtitle { font-size: 13px; color: #7f8c8d; text-align: center; margin-bottom: 20px; }
+        
+        .tab-content { display: none; }
         .active { display: block; }
-        .natok-card { background-color: #22223b; border-radius: 10px; margin-bottom: 15px; overflow: hidden; padding: 15px; }
-        .natok-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
-        .unlock-btn { background-color: #e84393; color: white; border: none; padding: 10px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        
+        /* Cards & Styling */
+        .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #edf2f7; }
+        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #2d3748; display: flex; align-items: center; }
+        
+        /* Trending Links */
+        .link-card { background: white; border-radius: 14px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #e2e8f0; }
+        .link-thumb { width: 65px; height: 65px; border-radius: 10px; background-color: #e2e8f0; margin-right: 12px; object-fit: cover; }
+        .link-info { flex: 1; }
+        .link-name { font-size: 14px; font-weight: bold; color: #1a202c; margin-bottom: 5px; line-height: 1.3; }
+        .link-meta { font-size: 11px; color: #718096; }
+        .task-btn { background-color: #1a202c; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; }
+        
+        /* Requirements Box */
+        .req-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #edf2f7; font-size: 13px; }
+        .req-status { font-weight: bold; }
+        .status-wrong { color: #e53e3e; }
+        .status-success { color: #38a169; }
+        
+        /* Inputs & Buttons */
         .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 5px; font-size: 14px; }
-        .input-group input, .input-group select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #444; background-color: #22223b; color: white; }
-        .submit-btn { background-color: #00b894; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .navbar { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #161623; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #2d2d44; }
-        .nav-item { color: #888; cursor: pointer; font-size: 14px; text-align: center; }
-        .nav-item.active-nav { color: #6c5ce7; font-weight: bold; }
+        .input-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: #4a5568; }
+        .input-group input, .input-group select { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid #cbd5e0; background-color: #fff; font-size: 14px; }
+        .submit-btn { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border: none; padding: 13px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 15px; }
+        
+        /* Bottom Navbar */
+        .navbar { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a202c; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #2d3748; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); }
+        .nav-item { color: #a0aec0; cursor: pointer; font-size: 11px; text-align: center; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+        .nav-item.active-nav { color: #9f7aea; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2>Natok Premium Link 🎬</h2>
+    <!-- Top Status Bar -->
+    <div class="top-header">
+        <div class="user-pill">
+            👤 <span id="top-username">ইউজার</span>
+        </div>
+        <div class="balance-badge">
+            ৳ <span id="user-balance">0.00</span>
+        </div>
     </div>
 
-    <div class="balance-box">
-        <h3>আমার ব্যালেন্স</h3>
-        <h2>৳ <span id="user-balance">0.00</span></h2>
-    </div>
-
-    <div id="home" class="tab-content active">
-        <h3>ট্রেন্ডিং নাটকসমূহ</h3><br>
+    <div class="container">
         
-        <div class="natok-card">
-            <div class="natok-title">🔥 অপূর্বর নতুন রোমান্টিক নাটক ২০২৬</div>
-            <button class="unlock-btn" onclick="watchAdAndUnlock('https://youtube.com')">🔓 টাস্ক পূরণ করে দেখুন</button>
+        <!-- 1. HOME TAB -->
+        <div id="home" class="tab-content active">
+            <h2 class="page-title">Trending Links</h2>
+            <p class="page-subtitle">Watch ads to unlock premium content.</p>
+            
+            <div class="link-card">
+                <div class="link-info">
+                    <div class="link-name">🎬 অপূর্বর নতুন রোমান্টিক নাটক ২০২৬</div>
+                    <div class="link-meta">⏱️ ৫ সেকেন্ড টাস্ক</div>
+                </div>
+                <button class="task-btn" onclick="watchAdAndUnlock()">⚡ Tasks (0/5)</button>
+            </div>
+
+            <div class="link-card">
+                <div class="link-info">
+                    <div class="link-name">🎬 মুশফিক আর ফারহানের ভাইরাল নাটক</div>
+                    <div class="link-meta">⏱️ ৫ সেকেন্ড টাস্ক</div>
+                </div>
+                <button class="task-btn" onclick="watchAdAndUnlock()">⚡ Tasks (0/5)</button>
+            </div>
         </div>
 
-        <div class="natok-card">
-            <div class="natok-title">🔥 মুশফিক আর ফারহানের সেরা নতুন নাটক</div>
-            <button class="unlock-btn" onclick="watchAdAndUnlock('https://youtube.com')">🔓 টাস্ক পূরণ করে দেখুন</button>
+        <!-- 2. EARN & TASK TAB -->
+        <div id="earn" class="tab-content">
+            <h2 class="page-title">Earn Money</h2>
+            <p class="page-subtitle">Watch ads & complete partner tasks</p>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 40px; margin-bottom: 10px;">👑</div>
+                <h3>Watch Video Ad</h3>
+                <p style="font-size: 13px; color: #718096; margin: 10px 0;">Get ৳0.50 per full completion.</p>
+                <button class="submit-btn" onclick="watchAdAndUnlock()">🎥 Start Watching</button>
+            </div>
         </div>
+
+        <!-- 3. REFER TAB -->
+        <div id="refer" class="tab-content">
+            <h2 class="page-title">Invite Friends</h2>
+            <p class="page-subtitle">Earn rewards for each successful referral</p>
+            <div class="card" style="text-align: center; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white;">
+                <h3>Referral Reward</h3>
+                <h2 style="margin: 10px 0;">৳৫.০০ / প্রতি রেফার</h2>
+            </div>
+            <div class="input-group">
+                <label>YOUR UNIQUE LINK</label>
+                <input type="text" id="refer-link" value="https://t.me/Natokapp01_bot?start=user" readonly>
+            </div>
+        </div>
+
+        <!-- 4. PROFILE & WITHDRAW TAB -->
+        <div id="profile" class="tab-content">
+            <div class="card" style="text-align: center;">
+                <h3 id="profile-name">মায়াবী রাজ কন্যা</h3>
+                <p style="color: #718096; font-size: 13px; margin-top: 4px;">ID: <span id="profile-id">852438925</span></p>
+                <div style="display: flex; justify-content: space-around; margin-top: 15px; border-top: 1px solid #edf2f7; padding-top: 15px;">
+                    <div>
+                        <div style="font-weight: bold; color: #6c5ce7;" id="prof-bal">৳0.00</div>
+                        <div style="font-size: 12px; color: #718096;">Balance</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; color: #6c5ce7;" id="user-refers">0</div>
+                        <div style="font-size: 12px; color: #718096;">Total Refers</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdrawal Requirements -->
+            <div class="card">
+                <div class="card-title">⚠️ Withdrawal Requirements:</div>
+                <div class="req-item">
+                    <span>👥 Referrals (15)</span>
+                    <span id="req-ref-status" class="req-status status-wrong">0/15 ❌</span>
+                </div>
+            </div>
+
+            <!-- Withdraw Form -->
+            <div class="card">
+                <div class="card-title">💸 Withdraw</div>
+                <div class="input-group">
+                    <label>Payment Method</label>
+                    <select id="method">
+                        <option value="bKash">bKash</option>
+                        <option value="Nagad">Nagad</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Wallet / Number</label>
+                    <input type="number" id="number" placeholder="017XXXXXXXX">
+                </div>
+                <div class="input-group">
+                    <label>Amount</label>
+                    <input type="number" id="amount" placeholder="Minimum ৳50">
+                </div>
+                <button class="submit-btn" onclick="requestWithdraw()">উইথড্র রিকোয়েস্ট পাঠান</button>
+            </div>
+        </div>
+
     </div>
 
-    <div id="withdraw" class="tab-content">
-        <h3>টাকা তুলুন (Withdraw)</h3><br>
-        <div class="input-group">
-            <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
-            <select id="method">
-                <option value="bKash">বিকাশ (bKash)</option>
-                <option value="Nagad">নগদ (Nagad)</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label>আপনার নম্বর দিন</label>
-            <input type="number" id="number" placeholder="017XXXXXXXX">
-        </div>
-        <div class="input-group">
-            <label>টাকার পরিমাণ (সর্বনিম্ন ৳৫০)</label>
-            <input type="number" id="amount" placeholder="50">
-        </div>
-        <button class="submit-btn" onclick="requestWithdraw()">উইথড্র রিকোয়েস্ট পাঠান</button>
-    </div>
-
+    <!-- Bottom Navigation Bar -->
     <div class="navbar">
-        <div class="nav-item active-nav" onclick="switchTab('home', this)">🏠 Home</div>
-        <div class="nav-item" onclick="switchTab('withdraw', this)">💰 Withdraw</div>
+        <div class="nav-item active-nav" onclick="switchTab('home', this)">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+        </div>
+        <div class="nav-item" onclick="switchTab('earn', this)">
+            <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            Earn & Task
+        </div>
+        <div class="nav-item" onclick="switchTab('refer', this)">
+            <svg viewBox="0 0 24 24"><path d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm8.93 9.61s-1.07-1.31-1.39-2.1c-.24-.58-.33-1.22-.33-1.85 0-1.5.65-2.86 1.7-3.8-1.5-.3-3.23-.46-4.91-.46-3.33 0-10 1.67-10 5v3h14.93z"/></svg>
+            Refer
+        </div>
+        <div class="nav-item" onclick="switchTab('profile', this)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Profile
+        </div>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
 
+        // সিমুলেটেড ডেটা (যেহেতু ডেটাবেজ নেই, আপাতত ডেমো দেখানোর জন্য)
         let balance = 0.00;
+        let totalRefers = 0; // এটা চেঞ্জ করে পরীক্ষা করতে পারেন (যেমন: 16 দিলে লক খুলে যাবে)
+
+        // টেলিগ্রাম ইউজার ডেটা সেট করা
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            const user = tg.initDataUnsafe.user;
+            document.getElementById('top-username').innerText = user.first_name;
+            document.getElementById('profile-name').innerText = user.first_name + " " + (user.last_name || "");
+            document.getElementById('profile-id').innerText = user.id;
+            document.getElementById('refer-link').value = "https://t.me/Natokapp01_bot?start=" + user.id;
+        }
 
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active-nav'));
             document.getElementById(tabId).classList.add('active');
             el.classList.add('active-nav');
+            
+            // প্রোফাইল ট্যাবের ডেটা আপডেট
+            if(tabId === 'profile') {
+                document.getElementById('prof-bal').innerText = "৳" + balance.toFixed(2);
+                document.getElementById('user-refers').innerText = totalRefers;
+                
+                const reqStatus = document.getElementById('req-ref-status');
+                if(totalRefers >= 15) {
+                    reqStatus.innerText = totalRefers + "/15  (পূরণ হয়েছে) ✅";
+                    reqStatus.className = "req-status status-success";
+                } else {
+                    reqStatus.innerText = totalRefers + "/15 ❌";
+                    reqStatus.className = "req-status status-wrong";
+                }
+            }
         }
 
-        function watchAdAndUnlock(natokLink) {
-            alert("বিজ্ঞাপন লোড হচ্ছে... দয়া করে ৫ সেকেন্ড অপেক্ষা করুন।");
+        function watchAdAndUnlock() {
+            alert("বিজ্ঞাপন লোড হচ্ছে... ৫ সেকেন্ড অপেক্ষা করুন।");
             setTimeout(() => {
                 balance += 0.50; 
                 document.getElementById('user-balance').innerText = balance.toFixed(2);
                 alert("অভিনন্দন! আপনার ব্যালেন্সে ৳০.৫০ যোগ হয়েছে।");
-                window.open(natokLink, '_blank');
             }, 3000);
         }
 
         function requestWithdraw() {
-            const method = document.getElementById('method').value;
             const number = document.getElementById('number').value;
             const amount = parseFloat(document.getElementById('amount').value);
 
-            if(!number || isNaN(amount) || amount < 50) {
-                alert("দয়া করে সঠিক নম্বর এবং সর্বনিম্ন ৫০ টাকা লিখুন।");
+            // ১৫টি রেফারের কন্ডিশন চেক
+            if(totalRefers < 5) {
+                alert("দুঃখিত! উইথড্র করার জন্য আপনার অবশ্যই সর্বনিম্ন ১৫ টি সফল রেফার থাকতে হবে।");
+                return;
+            }
+
+            if(!number || isNaN(amount) || amount < 500) {
+                alert("দয়া করে সঠিক নম্বর এবং সর্বনিম্ন ৫০০ টাকা লিখুন।");
                 return;
             }
 
@@ -115,14 +253,10 @@
                 return;
             }
 
-            const message = `💸 নতুন উইথড্র রিকোয়েস্ট!\n👤 ইউজার: ${tg.initDataUnsafe.user?.first_name || 'Unknown'}\n📱 মেথড: ${method}\n📞 নম্বর: ${number}\n💰 পরিমাণ: ৳${amount}`;
-            tg.sendData(message);
-            
+            alert("আপনার উইথড্র রিকোয়েস্টটি সফলভাবে সাবমিট হয়েছে!");
             balance -= amount;
             document.getElementById('user-balance').innerText = balance.toFixed(2);
-            alert("আপনার উইথড্র রিকোয়েস্টটি সফলভাবে পাঠানো হয়েছে!");
         }
     </script>
 </body>
 </html>
-
